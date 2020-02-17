@@ -24,19 +24,19 @@ class App extends Component {
     car.name = name;
     const cars = [...this.state.cars];
     cars[index] = car;
-    
+
     this.setState({
       cars
     });
   }
 
   deleteHandler(index) {
-    const cars = this.state.cars.concat()
-    cars.splice(index, 1)
+    const cars = this.state.cars.concat();
+    cars.splice(index, 1);
 
     this.setState({
       cars
-    })
+    });
   }
 
   render() {
@@ -68,7 +68,13 @@ class App extends Component {
 
         <button onClick={this.toggleCarsHandler}>Toggle cars</button>
 
-        {cars}
+        <div style={{
+          width: 400,
+          margin: 'auto',
+          paddingTop: '20px'
+        }}>
+          { cars }
+        </div>
       </div>
     );
   }
