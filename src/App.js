@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.scss";
 import Car from "./Car/Car";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+import Counter from "./Counter/Counter";
 
 class App extends Component {
   constructor(props) {
@@ -8,9 +10,9 @@ class App extends Component {
 
     this.state = {
       cars: [
-        { name: "Ford", year: 2018 }
-        // { name: "Audi", year: 2016 },
-        // { name: "Mazda", year: 2010 }
+        { name: "Ford", year: 2018 },
+        { name: "Audi", year: 2016 },
+        { name: "Mazda", year: 2010 }
       ],
       pageTitle: "React components",
       showCars: false
@@ -62,15 +64,16 @@ class App extends Component {
     if (this.state.showCars) {
       cars = this.state.cars.map((car, index) => {
         return (
-          <Car
-            key={index}
-            name={car.name}
-            year={car.year}
-            onDelete={this.deleteHandler.bind(this, index)}
-            onChangeName={event => {
-              this.onChangeName(event.target.value, index);
-            }}
-          />
+          <ErrorBoundary key={index}>
+            <Car
+              name={car.name}
+              year={car.year}
+              onDelete={this.deleteHandler.bind(this, index)}
+              onChangeName={event => {
+                this.onChangeName(event.target.value, index);
+              }}
+            />
+          </ErrorBoundary>
         );
       });
     }
@@ -80,7 +83,11 @@ class App extends Component {
         <h1>{this.props.title}</h1>
         {/* <h1>{this.state.pageTitle}</h1> */}
 
-        <button className={"AppButton"} onClick={this.toggleCarsHandler}>
+        <Counter />
+
+        <hr/>
+
+        <button style={{marginTop: 20 }} className={"AppButton"} onClick={this.toggleCarsHandler}>
           Toggle cars
         </button>
 
